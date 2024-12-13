@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="bg-zinc-900 p-10 min-h-screen w-full">
+        <h1 class="text-white text-3xl text-center mb-6">Task List</h1>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <% if (user.length > 0) { %>
+                <% user.forEach(function(val) { %>
+                    <div class="bg-zinc-600 text-white p-4 rounded-lg shadow-md max-w-xs w-full m-2">
+                        <h2 class="text-xl font-semibold tracking-tight">
+                            <%= val.title %>
+                        </h2>
+                        <p class="text-zinc-400"><%= val.details %></p>
+                        <a href="/delete/<%= val._id %>" class="text-red-400 hover:underline active:text-red-800">Delete Task</a>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <h5 class="text-white">Nothing is here</h5>
+            <% } %>
+        </div>
+    </div>
+</body>
+
+</html>
