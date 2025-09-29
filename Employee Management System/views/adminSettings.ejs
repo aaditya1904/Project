@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Settings</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="flex min-h-screen bg-gray-100">
+
+  <!-- Sidebar -->
+  <aside style="background-color: #102E50;" class="w-64 text-white flex flex-col">
+    <div class="p-6 text-xl font-semibold">ADMIN PANEL</div>
+    <nav class="flex-1 space-y-2 px-4">
+      <a href="/admin" class="block py-2 px-4 rounded hover:bg-blue-800">Dashboard</a>
+      <a href="/admin/attendance" class="block py-2 px-4 rounded hover:bg-blue-800">Attendance</a>
+      <a href="/admin/tasks" class="block py-2 px-4 rounded hover:bg-blue-800">Tasks</a>
+      <a href="/admin/reports" class="block py-2 px-4 rounded hover:bg-blue-800">Reports</a>
+      <a href="/admin/settings" class="block py-2 px-4 rounded hover:bg-blue-800">Settings</a>
+      <a href="/admin/logout" class="block py-2 px-4 rounded hover:bg-blue-800">Logout</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8">
+    <h1 class="text-2xl font-bold mb-6">Employee Management</h1>
+
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-4">All Employees</h2>
+      <table class="w-full table-auto">
+        <thead>
+          <tr class="text-left text-gray-600 border-b">
+            <th class="pb-2">Name</th>
+            <th class="pb-2">Email</th>
+            <th class="pb-2">Phone</th>
+            <th class="pb-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% employees.forEach(function(emp) { %>
+            <tr class="border-b hover:bg-gray-50">
+              <td class="py-3 flex items-center gap-3">
+                <img src="<%= emp.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(emp.name) %>" alt="<%= emp.name %>" class="w-8 h-8 rounded-full">
+                <%= emp.name %>
+              </td>
+              <td><%= emp.email %></td>
+              <td><%= emp.number || 'Not Provided' %></td>
+              <td>
+                <a href="/admin/user/<%= emp._id %>/edit" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Edit</a>
+                <a href="/user/delete/<%= emp._id %>" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Delete</a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+</body>
+</html>

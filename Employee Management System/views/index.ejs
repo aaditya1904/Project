@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= employee.name %></title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="flex min-h-screen bg-gray-100">
+
+  <aside style="background-color: #102E50;" class="w-64 text-white flex flex-col">
+    <div class="p-6 text-xl font-semibold"><%= employee.name %></div>
+    <nav class="flex-1 space-y-2 px-4">
+      <a href="/user/<%= employee._id %>" class="block py-2 px-4 rounded hover:bg-blue-800">Dashboard</a>
+      <a href="/user/<%= employee._id %>/attendance" class="block py-2 px-4 rounded hover:bg-blue-800">Attendance</a>
+      <a href="/user/<%= employee._id %>/tasks" class="block py-2 px-4 rounded hover:bg-blue-800">Tasks</a>
+      <a href="/user/<%= employee._id %>/reports" class="block py-2 px-4 rounded hover:bg-blue-800">Reports</a>
+      <a href="/user/<%= employee._id %>/settings" class="block py-2 px-4 rounded hover:bg-blue-800">Settings</a>
+      <a href="/user/<%= employee._id %>/logout" class="block py-2 px-4 rounded hover:bg-blue-800">Logout</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-8">
+    <div class="flex justify-between items-center mb-6">
+      <div class="flex items-center space-x-2">
+        <img src="<%= employee.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(employee.name) %>"
+          alt="<%= employee.name %>" class="w-8 h-8 rounded-full" />
+        <h1 class="text-2xl font-bold m-0">Welcome, <%= employee.name %></h1>
+      </div>
+      <hr>
+      <input type="text" placeholder="Search" class="border px-3 py-2 rounded-sm" />
+    </div>
+  </main>
+
+</body>
+</html>

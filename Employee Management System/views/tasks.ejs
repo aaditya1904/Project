@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Employee Tasks</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="flex min-h-screen bg-gray-100">
+
+  <aside style="background-color: #102E50;" class="w-64 text-white flex flex-col">
+    <div class="p-6 text-xl font-semibold"><%= employee.name %></div>
+    <nav class="flex-1 space-y-2 px-4">
+      <a href="/user/<%= employee._id %>" class="block py-2 px-4 rounded hover:bg-blue-800">Dashboard</a>
+      <a href="/user/<%= employee._id %>/attendance" class="block py-2 px-4 rounded hover:bg-blue-800">Attendance</a>
+      <a href="/user/<%= employee._id %>/tasks" class="block py-2 px-4 rounded hover:bg-blue-800">Tasks</a>
+      <a href="/user/<%= employee._id %>/reports" class="block py-2 px-4 rounded hover:bg-blue-800">Reports</a>
+      <a href="/user/<%= employee._id %>/settings" class="block py-2 px-4 rounded hover:bg-blue-800">Settings</a>
+      <a href="/user/<%= employee._id %>/logout" class="block py-2 px-4 rounded hover:bg-blue-800">Logout</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-8">
+    <h1 class="text-2xl font-bold mb-4">Tasks Assigned to <%= employee.name %></h1>
+
+    <% if (!tasks || tasks.length === 0) { %> <!-- Check if tasks array is empty or not provided -->
+      <p class="text-gray-500">No tasks assigned yet.</p>
+    <% } else { %>
+      <div class="bg-white shadow rounded-lg p-6">
+        <table class="w-full table-auto">
+          <thead>
+            <tr class="text-left text-gray-600 border-b">
+              <th class="pb-2">Title</th>
+              <th class="pb-2">Description</th>
+              <th class="pb-2">Status</th>
+              <th class="pb-2">Assigned On</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% tasks.forEach(task => { %>
+              <tr class="border-b hover:bg-gray-50">
+                <td class="py-2"><%= task.title %></td>
+                <td class="py-2"><%= task.description %></td>
+                <td class="py-2">
+                  <span class="inline-block px-2 py-1 text-xs rounded
+                    <% if (task.status === 'Completed') { %> bg-green-100 text-green-700
+                    <% } else if (task.status === 'In Progress') { %> bg-yellow-100 text-yellow-700
+                    <% } else if (task.status === 'Pending') { %> bg-gray-100 text-gray-700
+                    <% } else { %> bg-red-100 text-red-700 <% } %>">
+                    <%= task.status %>
+                  </span>
+                  <!-- Add checkbox to mark as Pending (no JS for now) -->
+                  <input type="checkbox" class="ml-2" disabled <% if (task.status === 'Pending') { %> checked <% } %> />
+                </td>
+                <td class="py-2"><%= new Date(task.createdAt).toLocaleDateString() %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </main>
+
+</body>
+
+</html>
